@@ -39,22 +39,29 @@ void loop() {
 
   if ((distance == 0.0) || (distance > _DIST_MAX)) {
     distance = _DIST_MAX + 10.0;    
-    analogWrite(PIN_LED, 0);        
+    analogWrite(PIN_LED, 255);        
   } else if (distance < _DIST_MIN) {
     distance = _DIST_MIN - 10.0;    
     analogWrite(PIN_LED, 255);      
-  } else if (distance <= 200) {
+  } else if (distance < 200) {
     int brightness = map(distance, 100, 200, 255, 128); 
     analogWrite(PIN_LED, brightness);
-  } else if (distance <= 300) {
+  } else if (distance = 200) {
+    int brightness = 0;
+    analogWrite(PIN_LED, brightness);
+  }
+  else if (distance <= 300) {
     int brightness = map(distance, 200, 300, 128, 0); 
     analogWrite(PIN_LED, brightness);
   }
+  
+
+  
 
   // output the distance to the serial port
   Serial.print("Min:");        Serial.print(_DIST_MIN);
-  Serial.print(",distance:");  Serial.print(distance);
-  Serial.print(",Max:");       Serial.print(_DIST_MAX);
+  Serial.print(",distance:");   Serial.print(distance);
+ 
   Serial.println("");
   
  // Assume that it takes 50ms to do something.
@@ -75,8 +82,8 @@ float USS_measure(int TRIG, int ECHO)
   // Pulse duration to distance conversion example (target distance = 17.3m)
   // - pulseIn(ECHO, HIGH, timeout) returns microseconds (음파의 왕복 시간)
   // - 편도 거리 = (pulseIn() / 1,000,000) * SND_VEL / 2 (미터 단위)
-  //   mm 단위로 하려면 * 1,000이 필요 ==>  SCALE = 0.001 * 0.5 * SND_VEL
-  //
+  //   mm 단위로 하려면 * 1,000이 필요 ==>  SCALE = 0.001 * 0.5 * SND_VEL Serial.print(distance);
+  // Serial.print(",Max:");       Serial.print(_DIST_MAX);
   // - 예, pusseIn()이 100,000 이면 (= 0.1초, 왕복 거리 34.6m)
   //        = 100,000 micro*sec * 0.001 milli/micro * 0.5 * 346 meter/sec
   //        = 100,000 * 0.001 * 0.5 * 346
